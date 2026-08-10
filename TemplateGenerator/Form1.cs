@@ -32,22 +32,27 @@ namespace TemplateGenerator
             InitializeReplacementTable();
             InitializeContextMenu();
             
+            // Преобразование тегов по умолчанию ВКЛЮЧЕНО
             convertTagsToUnderscore = true;
             btnConvertTags.Text = "🔄 Преобразование ВКЛ (→ _)";
             btnConvertTags.BackColor = Color.FromArgb(46, 204, 113);
             
+            // Подписываемся на события для DataGridView
             this.dgvReplacements.KeyDown += DgvReplacements_KeyDown;
             this.dgvReplacements.Enter += DgvReplacements_Enter;
             this.dgvReplacements.Leave += DgvReplacements_Leave;
             
+            // Подписываемся на события для txtTemplatePreview (Предпросмотр шаблона)
             this.txtTemplatePreview.KeyDown += TxtTemplatePreview_KeyDown;
             this.txtTemplatePreview.Enter += TxtTemplatePreview_Enter;
             this.txtTemplatePreview.Leave += TxtTemplatePreview_Leave;
             
+            // Подписываемся на события для txtMappingInfo (Детали замен по экземплярам)
             this.txtMappingInfo.KeyDown += TxtMappingInfo_KeyDown;
             this.txtMappingInfo.Enter += TxtMappingInfo_Enter;
             this.txtMappingInfo.Leave += TxtMappingInfo_Leave;
             
+            // Подписываемся на события для rtbLog (Окно событий)
             this.rtbLog.Enter += RtbLog_Enter;
             this.rtbLog.Leave += RtbLog_Leave;
             
@@ -85,6 +90,7 @@ namespace TemplateGenerator
             }
             else
             {
+                // Восстанавливаем горячие клавиши
                 if (item.Text.Contains("Загрузить шаблон"))
                     item.ShortcutKeys = Keys.Control | Keys.O;
                 else if (item.Text.Contains("Загрузить экземпляры"))
@@ -126,16 +132,19 @@ namespace TemplateGenerator
         {
             if (txtTemplatePreview.Focused)
             {
+                // Ctrl+C - копирование (стандартное поведение)
                 if (e.Control && e.KeyCode == Keys.C)
                 {
                     return;
                 }
                 
+                // Ctrl+V - вставка (стандартное поведение)
                 if (e.Control && e.KeyCode == Keys.V)
                 {
                     return;
                 }
                 
+                // Ctrl+A - выделить все (стандартное поведение)
                 if (e.Control && e.KeyCode == Keys.A)
                 {
                     return;
@@ -159,16 +168,19 @@ namespace TemplateGenerator
         {
             if (txtMappingInfo.Focused)
             {
+                // Ctrl+C - копирование (стандартное поведение)
                 if (e.Control && e.KeyCode == Keys.C)
                 {
                     return;
                 }
                 
+                // Ctrl+V - вставка (стандартное поведение)
                 if (e.Control && e.KeyCode == Keys.V)
                 {
                     return;
                 }
                 
+                // Ctrl+A - выделить все (стандартное поведение)
                 if (e.Control && e.KeyCode == Keys.A)
                 {
                     return;
@@ -192,6 +204,7 @@ namespace TemplateGenerator
         {
             if (dgvReplacements.Focused)
             {
+                // Ctrl+C - копирование
                 if (e.Control && e.KeyCode == Keys.C)
                 {
                     e.SuppressKeyPress = true;
@@ -200,6 +213,7 @@ namespace TemplateGenerator
                     return;
                 }
                 
+                // Ctrl+V - вставка
                 if (e.Control && e.KeyCode == Keys.V)
                 {
                     e.SuppressKeyPress = true;
@@ -208,6 +222,7 @@ namespace TemplateGenerator
                     return;
                 }
                 
+                // Ctrl+X - вырезание
                 if (e.Control && e.KeyCode == Keys.X)
                 {
                     e.SuppressKeyPress = true;
@@ -216,6 +231,7 @@ namespace TemplateGenerator
                     return;
                 }
                 
+                // Delete - удаление
                 if (e.KeyCode == Keys.Delete)
                 {
                     e.SuppressKeyPress = true;
@@ -230,6 +246,7 @@ namespace TemplateGenerator
         #region Переопределение обработки клавиш на уровне формы
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            // Если фокус на DataGridView, перехватываем Ctrl+C, Ctrl+V, Ctrl+X, Delete
             if (dgvReplacements.Focused)
             {
                 if (keyData == (Keys.Control | Keys.C) ||
@@ -241,6 +258,7 @@ namespace TemplateGenerator
                 }
             }
             
+            // Для txtTemplatePreview и txtMappingInfo разрешаем стандартное поведение
             if (txtTemplatePreview.Focused || txtMappingInfo.Focused)
             {
                 if (keyData == (Keys.Control | Keys.C) ||
@@ -251,6 +269,7 @@ namespace TemplateGenerator
                 }
             }
             
+            // Для rtbLog (окно событий) разрешаем стандартное поведение
             if (rtbLog.Focused)
             {
                 if (keyData == (Keys.Control | Keys.C) ||
@@ -560,7 +579,7 @@ namespace TemplateGenerator
         }
         #endregion
 
-        #region Инициализация таблицы замен (ИСПРАВЛЕНО)
+        #region Инициализация таблицы замен
         private void InitializeReplacementTable()
         {
             replacementTable = new DataTable();
@@ -629,7 +648,7 @@ namespace TemplateGenerator
         }
         #endregion
 
-        #region Автоматическое определение тегов (ИСПРАВЛЕНО)
+        #region Автоматическое определение тегов (ОБНОВЛЕНО)
         private void AutoDetectTags()
         {
             if (string.IsNullOrEmpty(templateContent))
@@ -637,38 +656,37 @@ namespace TemplateGenerator
 
             try
             {
-                string pattern = @"_([0-9]{1,6})_([A-Za-z]{1,10})_([0-9][A-Za-z0-9]{0,9})(?=[^A-Za-z0-9_]|$)";
+                // Паттерн для поиска тегов с 3-мя и более частями
+                // Находим _цифры_буквы_цифры+буквы (первые 3 части)
+                // 4-я часть игнорируется (отбрасывается)
+                // Тег заканчивается перед любым символом, КРОМЕ буквы, цифры или подчеркивания,
+                // ИЛИ перед подчеркиванием (если это начало 4-й части)
+                string pattern = @"_([0-9]{1,6})_([A-Za-z]{1,10})_([0-9][A-Za-z0-9]{0,9})(?=[^A-Za-z0-9_]|$|_)";
                 var matches = Regex.Matches(templateContent, pattern);
 
                 if (matches.Count > 0)
                 {
                     var uniqueTags = new HashSet<string>();
-                    var tagList = new List<string>();
-
-                    foreach (Match match in matches)
-                    {
-                        string tag = match.Value;
-                        if (!tag.Contains("__") && !uniqueTags.Contains(tag))
-                        {
-                            uniqueTags.Add(tag);
-                            tagList.Add(tag);
-                        }
-                    }
-
                     var sortedTags = new List<string>();
                     var seenTags = new HashSet<string>();
+
+                    // Сортируем по порядку появления
                     foreach (Match match in matches)
                     {
                         string tag = match.Value;
-                        if (!tag.Contains("__") && !seenTags.Contains(tag))
+                        // Проверяем уникальность
+                        if (!seenTags.Contains(tag))
                         {
                             seenTags.Add(tag);
                             sortedTags.Add(tag);
+                            AddLogMessage($"Найден тег: {tag}", LogType.Info);
                         }
                     }
 
+                    // Очищаем таблицу
                     replacementTable.Clear();
 
+                    // Заполняем таблицу найденными тегами
                     int position = 1;
                     foreach (string tag in sortedTags)
                     {
@@ -677,18 +695,27 @@ namespace TemplateGenerator
                     }
 
                     // Добавляем пустую строку в конце
-                    int emptyRowPosition = position;
-                    replacementTable.Rows.Add(emptyRowPosition, string.Empty, false);
+                    replacementTable.Rows.Add(position, string.Empty, false);
 
                     dgvReplacements.Refresh();
                     AddLogMessage($"Автоматически определено {sortedTags.Count} уникальных тегов для замены", LogType.Info);
-                    AddLogMessage($"Добавлена пустая строка для нового тега (позиция {emptyRowPosition})", LogType.Info);
+                    AddLogMessage($"Добавлена пустая строка для нового тега (позиция {position})", LogType.Info);
                     UpdateActiveReplacements();
                     UpdateMappingInfo();
+                    
+                    // Выводим список найденных тегов для отладки
+                    if (sortedTags.Count > 0)
+                    {
+                        string tagList = string.Join(", ", sortedTags);
+                        AddLogMessage($"Найденные теги: {tagList}", LogType.Info);
+                    }
                 }
                 else
                 {
                     AddLogMessage("Теги для автоматической замены не найдены", LogType.Warning);
+                    AddLogMessage("Ожидаемый формат: _цифры_буквы_цифры+буквы", LogType.Info);
+                    AddLogMessage("Пример: _2120_XZV_00204A", LogType.Info);
+                    AddLogMessage("4-я часть (если есть) игнорируется", LogType.Info);
                 }
             }
             catch (Exception ex)
@@ -788,22 +815,27 @@ namespace TemplateGenerator
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             
+            // Заголовок
             sb.AppendLine(new string('=', 100));
             sb.AppendLine("                    Детали замен по экземплярам");
             sb.AppendLine(new string('=', 100));
             sb.AppendLine();
 
+            // Данные по экземплярам
             var sortedPositions = activeReplacements.Keys.OrderBy(k => k).ToList();
             
             foreach (var instance in instances)
             {
+                // Имя экземпляра
                 sb.AppendLine($"Экземпляр: {instance.InstanceName}");
                 
+                // Замены по позициям
                 foreach (var pos in sortedPositions)
                 {
                     string searchTag = activeReplacements[pos];
                     string replaceTag = instance.Replacements.ContainsKey(pos) ? instance.Replacements[pos] : "ОТСУТСТВУЕТ";
 
+                    // Если тег для поиска начинается с "_", то и тег замены должен начинаться с "_"
                     if (searchTag.StartsWith("_") && replaceTag != "ОТСУТСТВУЕТ")
                     {
                         if (!replaceTag.StartsWith("_"))
@@ -820,11 +852,13 @@ namespace TemplateGenerator
                     sb.AppendLine($"  Позиция {pos}: {searchTag} -> {replaceTag}");
                 }
                 
+                // Разделитель между экземплярами
                 sb.AppendLine(new string('-', 80));
             }
 
             sb.AppendLine();
 
+            // Статистика
             sb.AppendLine(new string('=', 100));
             sb.AppendLine("                              Статистика");
             sb.AppendLine(new string('=', 100));
@@ -987,6 +1021,7 @@ namespace TemplateGenerator
                     int generatedCount = 0;
                     string historyFilePath = Path.Combine(outputFolder, "История замен.txt");
 
+                    // Формируем заголовок истории
                     string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string historyHeader = new string('=', 100);
                     string historyEntry = $@"
@@ -1000,6 +1035,7 @@ namespace TemplateGenerator
 
 ";
 
+                    // Формируем детали замен
                     var sortedPositions = activeReplacements.Keys.OrderBy(k => k).ToList();
                     
                     historyEntry += "ДЕТАЛИ ЗАМЕН ПО ЭКЗЕМПЛЯРАМ:\n";
@@ -1013,6 +1049,7 @@ namespace TemplateGenerator
                             string searchTag = activeReplacements[pos];
                             string replaceTag = instance.Replacements.ContainsKey(pos) ? instance.Replacements[pos] : "ОТСУТСТВУЕТ";
 
+                            // Если тег для поиска начинается с "_", то и тег замены должен начинаться с "_"
                             if (searchTag.StartsWith("_") && replaceTag != "ОТСУТСТВУЕТ")
                             {
                                 if (!replaceTag.StartsWith("_"))
@@ -1046,6 +1083,7 @@ namespace TemplateGenerator
                                     string searchTag = activeReplacements[pos];
                                     string replaceTag = instance.Replacements.ContainsKey(pos) ? instance.Replacements[pos] : searchTag;
 
+                                    // Если тег для поиска начинается с "_", то и тег замены должен начинаться с "_"
                                     if (searchTag.StartsWith("_") && replaceTag != "ОТСУТСТВУЕТ")
                                     {
                                         if (!replaceTag.StartsWith("_"))
@@ -1090,6 +1128,7 @@ namespace TemplateGenerator
                             }
                         }
 
+                        // Сохраняем историю замен (дополняем файл)
                         try
                         {
                             File.AppendAllText(historyFilePath, historyEntry, System.Text.Encoding.UTF8);
@@ -1138,7 +1177,7 @@ namespace TemplateGenerator
         }
         #endregion
 
-        #region Очистка всех данных (ИСПРАВЛЕНО)
+        #region Очистка всех данных
         private void btnClearAll_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Вы уверены, что хотите очистить все данные?", "Подтверждение",
@@ -1169,6 +1208,7 @@ namespace TemplateGenerator
                     dgvReplacements.Refresh();
                     activeReplacements.Clear();
 
+                    // Преобразование тегов по умолчанию ВКЛ
                     convertTagsToUnderscore = true;
                     btnConvertTags.Text = "🔄 Преобразование ВКЛ (→ _)";
                     btnConvertTags.BackColor = Color.FromArgb(46, 204, 113);
@@ -1251,12 +1291,14 @@ namespace TemplateGenerator
         }
         #endregion
 
-        #region Обработка изменений таблицы (ИСПРАВЛЕНО)
+        #region Обработка изменений таблицы
         private void dgvReplacements_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
+                // Проверяем, заполнена ли последняя строка
                 CheckAndAddNewRow();
+                
                 UpdateActiveReplacements();
                 UpdateMappingInfo();
             }
@@ -1270,6 +1312,9 @@ namespace TemplateGenerator
             }
         }
 
+        /// <summary>
+        /// Проверяет, заполнена ли последняя строка, и добавляет новую если нужно
+        /// </summary>
         private void CheckAndAddNewRow()
         {
             if (replacementTable.Rows.Count == 0)
