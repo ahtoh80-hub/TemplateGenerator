@@ -1,2 +1,0 @@
-C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\Publish\TemplateGenerator.pdb
-C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\Publish\TemplateGenerator.exe
