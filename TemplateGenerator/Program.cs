@@ -10,7 +10,16 @@ namespace TemplateGenerator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            
+            try
+            {
+                Application.Run(new Form1());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при запуске приложения:\n{ex.Message}\n\n{ex.StackTrace}", 
+                    "Критическая ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

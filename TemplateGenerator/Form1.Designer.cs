@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Forms;
 
 namespace TemplateGenerator
@@ -14,7 +15,6 @@ namespace TemplateGenerator
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Panel panelButtons;
         
-        // MenuStrip (главное меню сверху)
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
         private System.Windows.Forms.ToolStripMenuItem toolsMenu;
@@ -46,13 +46,12 @@ namespace TemplateGenerator
         private System.Windows.Forms.TextBox txtTemplatePreview;
         private System.Windows.Forms.Label lblPreviewTitle;
         
-        private System.Windows.Forms.TextBox txtMappingInfo;
+        private System.Windows.Forms.RichTextBox txtMappingInfo;
         private System.Windows.Forms.Label lblMappingTitle;
         
         private System.Windows.Forms.RichTextBox rtbLog;
         private System.Windows.Forms.Label lblLogTitle;
         
-        // Splitter для изменения ширины правой панели
         private System.Windows.Forms.Splitter splitterRight;
 
         protected override void Dispose(bool disposing)
@@ -76,7 +75,6 @@ namespace TemplateGenerator
             
             this.splitterRight = new System.Windows.Forms.Splitter();
             
-            // MenuStrip элементы
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,15 +106,13 @@ namespace TemplateGenerator
             this.txtTemplatePreview = new System.Windows.Forms.TextBox();
             this.lblPreviewTitle = new System.Windows.Forms.Label();
             
-            this.txtMappingInfo = new System.Windows.Forms.TextBox();
+            this.txtMappingInfo = new System.Windows.Forms.RichTextBox();
             this.lblMappingTitle = new System.Windows.Forms.Label();
             
             this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.lblLogTitle = new System.Windows.Forms.Label();
             
-            // ============================================
-            // Инициализация MenuStrip (черный текст)
-            // ============================================
+            // MenuStrip
             this.menuStrip.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
             this.menuStrip.ForeColor = System.Drawing.Color.Black;
             this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -144,17 +140,17 @@ namespace TemplateGenerator
             this.loadTemplateMenuItem.Text = "📄 Загрузить шаблон";
             this.loadTemplateMenuItem.ForeColor = System.Drawing.Color.Black;
             this.loadTemplateMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O;
-            this.loadTemplateMenuItem.Click += (s, e) => btnLoadTemplate.PerformClick();
+            this.loadTemplateMenuItem.Click += new System.EventHandler((s, e) => btnLoadTemplate.PerformClick());
             
             this.loadExcelMenuItem.Text = "📊 Загрузить экземпляры";
             this.loadExcelMenuItem.ForeColor = System.Drawing.Color.Black;
             this.loadExcelMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E;
-            this.loadExcelMenuItem.Click += (s, e) => btnLoadExcel.PerformClick();
+            this.loadExcelMenuItem.Click += new System.EventHandler((s, e) => btnLoadExcel.PerformClick());
             
             this.exitMenuItem.Text = "❌ Выход";
             this.exitMenuItem.ForeColor = System.Drawing.Color.Black;
             this.exitMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4;
-            this.exitMenuItem.Click += (s, e) => Application.Exit();
+            this.exitMenuItem.Click += new System.EventHandler((s, e) => Application.Exit());
             
             // Tools Menu
             this.toolsMenu.Text = "🛠 Инструменты";
@@ -170,22 +166,22 @@ namespace TemplateGenerator
             this.validateMenuItem.Text = "✅ Проверить данные";
             this.validateMenuItem.ForeColor = System.Drawing.Color.Black;
             this.validateMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V;
-            this.validateMenuItem.Click += (s, e) => btnValidate.PerformClick();
+            this.validateMenuItem.Click += new System.EventHandler((s, e) => btnValidate.PerformClick());
             
             this.convertTagsMenuItem.Text = "🔄 Преобразовать тэг";
             this.convertTagsMenuItem.ForeColor = System.Drawing.Color.Black;
             this.convertTagsMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T;
-            this.convertTagsMenuItem.Click += (s, e) => btnConvertTags.PerformClick();
+            this.convertTagsMenuItem.Click += new System.EventHandler((s, e) => btnConvertTags.PerformClick());
             
             this.generateMenuItem.Text = "🚀 Сгенерировать";
             this.generateMenuItem.ForeColor = System.Drawing.Color.Black;
             this.generateMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G;
-            this.generateMenuItem.Click += (s, e) => btnGenerate.PerformClick();
+            this.generateMenuItem.Click += new System.EventHandler((s, e) => btnGenerate.PerformClick());
             
             this.clearAllMenuItem.Text = "🗑 Очистить все";
             this.clearAllMenuItem.ForeColor = System.Drawing.Color.Black;
             this.clearAllMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C;
-            this.clearAllMenuItem.Click += (s, e) => btnClearAll.PerformClick();
+            this.clearAllMenuItem.Click += new System.EventHandler((s, e) => btnClearAll.PerformClick());
             
             // Help Menu
             this.helpMenu.Text = "❓ Помощь";
@@ -196,20 +192,18 @@ namespace TemplateGenerator
             
             this.aboutMenuItem.Text = "ℹ️ О программе";
             this.aboutMenuItem.ForeColor = System.Drawing.Color.Black;
-            this.aboutMenuItem.Click += (s, e) => {
+            this.aboutMenuItem.Click += new System.EventHandler((s, e) => {
                 MessageBox.Show(
-                    "Генератор экземпляров по шаблону\nВерсия 2.2\n\nРазработчик: Антон Решетов\nЗаказчик: ТЭКОН-Системы\n\n© 2026",
+                    "Генератор экземпляров по шаблону\nВерсия 2.3\n\nРазработчик: Антон Решетов\nЗаказчик: ТЭКОН-Системы\n\n© 2026",
                     "О программе",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
-            };
+            });
             
             this.SuspendLayout();
             
-            // ============================================
             // Form1
-            // ============================================
             this.Text = "Генератор экземпляров по шаблону";
             this.BackColor = System.Drawing.Color.FromArgb(13, 37, 63);
             this.ForeColor = System.Drawing.Color.White;
@@ -218,9 +212,7 @@ namespace TemplateGenerator
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.MainMenuStrip = this.menuStrip;
             
-            // ============================================
             // panelTop
-            // ============================================
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Height = 60;
             this.panelTop.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
@@ -257,16 +249,12 @@ namespace TemplateGenerator
             this.panelTop.Controls.Add(this.lblExcelInfo);
             this.panelTop.Controls.Add(this.lblActiveReplacements);
             
-            // ============================================
             // panelMain
-            // ============================================
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.BackColor = System.Drawing.Color.FromArgb(13, 37, 63);
             this.panelMain.Padding = new System.Windows.Forms.Padding(5);
             
-            // ============================================
             // panelLeft - Таблица замен
-            // ============================================
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Width = 380;
             this.panelLeft.BackColor = System.Drawing.Color.FromArgb(20, 50, 95);
@@ -285,6 +273,7 @@ namespace TemplateGenerator
             this.lblReplacementsTitle.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.lblReplacementsTitle.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
             
+            // Настройка dgvReplacements
             this.dgvReplacements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvReplacements.BackgroundColor = System.Drawing.Color.White;
             this.dgvReplacements.ForeColor = System.Drawing.Color.Black;
@@ -298,13 +287,37 @@ namespace TemplateGenerator
             this.dgvReplacements.AllowUserToDeleteRows = false;
             this.dgvReplacements.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             
+            // Создаем колонки вручную
+            DataGridViewTextBoxColumn colNumber = new DataGridViewTextBoxColumn();
+            colNumber.Name = "№";
+            colNumber.HeaderText = "№";
+            colNumber.Width = 45;
+            colNumber.ReadOnly = true;
+            colNumber.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+
+            DataGridViewTextBoxColumn colTagName = new DataGridViewTextBoxColumn();
+            colTagName.Name = "Имя тега для поиска";
+            colTagName.HeaderText = "Имя тега для поиска";
+            colTagName.Width = 200;
+            colTagName.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+
+            DataGridViewCheckBoxColumn colUse = new DataGridViewCheckBoxColumn();
+            colUse.Name = "Использовать";
+            colUse.HeaderText = "Использовать";
+            colUse.Width = 70;
+            colUse.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+
+            this.dgvReplacements.Columns.AddRange(new DataGridViewColumn[] {
+                colNumber,
+                colTagName,
+                colUse
+            });
+            
             panelLeftContainer.Controls.Add(this.dgvReplacements);
             panelLeftContainer.Controls.Add(this.lblReplacementsTitle);
             this.panelLeft.Controls.Add(panelLeftContainer);
             
-            // ============================================
-            // panelRight - Информация о заменах (сначала справа)
-            // ============================================
+            // panelRight - Информация о заменах
             this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelRight.Width = 450;
             this.panelRight.BackColor = System.Drawing.Color.FromArgb(20, 50, 95);
@@ -325,33 +338,26 @@ namespace TemplateGenerator
             this.lblMappingTitle.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
             
             this.txtMappingInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtMappingInfo.BackColor = System.Drawing.Color.FromArgb(10, 25, 45);
-            this.txtMappingInfo.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
+            this.txtMappingInfo.BackColor = System.Drawing.Color.White;
+            this.txtMappingInfo.ForeColor = System.Drawing.Color.Black;
             this.txtMappingInfo.Font = new System.Drawing.Font("Consolas", 9F);
-            this.txtMappingInfo.Multiline = true;
-            this.txtMappingInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtMappingInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Both;
             this.txtMappingInfo.ReadOnly = true;
             this.txtMappingInfo.WordWrap = false;
+            this.txtMappingInfo.DetectUrls = false;
+            this.txtMappingInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             
             panelRightContainer.Controls.Add(this.txtMappingInfo);
             panelRightContainer.Controls.Add(this.lblMappingTitle);
             this.panelRight.Controls.Add(panelRightContainer);
             
-            // ============================================
-            // Splitter - располагается между panelRight и panelCenter
-            // ============================================
+            // Splitter
             this.splitterRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.splitterRight.Width = 6;
             this.splitterRight.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
             this.splitterRight.MinSize = 250;
-            this.splitterRight.SplitterMoved += (s, e) => {
-                // Обновляем информацию при изменении размера
-                this.Invalidate();
-            };
             
-            // ============================================
-            // panelCenter - Предпросмотр (занимает оставшееся место)
-            // ============================================
+            // panelCenter - Предпросмотр
             this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCenter.BackColor = System.Drawing.Color.FromArgb(20, 50, 95);
             this.panelCenter.Padding = new System.Windows.Forms.Padding(5);
@@ -375,21 +381,13 @@ namespace TemplateGenerator
             this.panelCenter.Controls.Add(this.lblPreviewTitle);
             this.panelCenter.Controls.Add(this.txtTemplatePreview);
             
-            // ============================================
-            // Сборка panelMain - ВАЖНЫЙ ПОРЯДОК!
-            // ============================================
-            // Сначала добавляем panelLeft (слева)
-            // Затем panelRight (справа)
-            // Затем Splitter (прикрепляется к panelRight)
-            // Затем panelCenter (заполняет оставшееся место)
+            // Сборка panelMain
             this.panelMain.Controls.Add(this.panelCenter);
             this.panelMain.Controls.Add(this.splitterRight);
             this.panelMain.Controls.Add(this.panelRight);
             this.panelMain.Controls.Add(this.panelLeft);
             
-            // ============================================
             // panelButtons
-            // ============================================
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelButtons.Height = 50;
             this.panelButtons.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
@@ -468,9 +466,7 @@ namespace TemplateGenerator
             this.panelButtons.Controls.Add(this.btnGenerate);
             this.panelButtons.Controls.Add(this.btnClearAll);
             
-            // ============================================
             // panelBottom - Лог
-            // ============================================
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBottom.Height = 150;
             this.panelBottom.BackColor = System.Drawing.Color.FromArgb(10, 25, 45);
@@ -494,9 +490,7 @@ namespace TemplateGenerator
             this.panelBottom.Controls.Add(this.rtbLog);
             this.panelBottom.Controls.Add(this.lblLogTitle);
             
-            // ============================================
             // Добавление элементов на форму
-            // ============================================
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.panelBottom);
