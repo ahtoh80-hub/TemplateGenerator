@@ -32,7 +32,6 @@ namespace TemplateGenerator
             {
                 InitializeComponent();
                 
-                // Проверяем, что компоненты инициализированы
                 if (dgvReplacements == null)
                 {
                     MessageBox.Show("Ошибка: dgvReplacements не инициализирован", "Ошибка", 
@@ -44,29 +43,25 @@ namespace TemplateGenerator
                 InitializeContextMenu();
                 
                 convertTagsToUnderscore = true;
-                btnConvertTags.Text = "🔄 Преобразование ВКЛ (→ _)";
+                btnConvertTags.Text = "Преобразование Вкл";
                 btnConvertTags.BackColor = Color.FromArgb(46, 204, 113);
+                btnConvertTags.ForeColor = Color.White;
                 
-                // Подписываемся на события для DataGridView
                 this.dgvReplacements.KeyDown += DgvReplacements_KeyDown;
                 this.dgvReplacements.Enter += DgvReplacements_Enter;
                 this.dgvReplacements.Leave += DgvReplacements_Leave;
                 
-                // Подписываемся на события для txtTemplatePreview
                 this.txtTemplatePreview.KeyDown += TxtTemplatePreview_KeyDown;
                 this.txtTemplatePreview.Enter += TxtTemplatePreview_Enter;
                 this.txtTemplatePreview.Leave += TxtTemplatePreview_Leave;
                 
-                // Подписываемся на события для txtMappingInfo
                 this.txtMappingInfo.KeyDown += TxtMappingInfo_KeyDown;
                 this.txtMappingInfo.Enter += TxtMappingInfo_Enter;
                 this.txtMappingInfo.Leave += TxtMappingInfo_Leave;
                 
-                // Подписываемся на события для rtbLog
                 this.rtbLog.Enter += RtbLog_Enter;
                 this.rtbLog.Leave += RtbLog_Leave;
                 
-                // Показываем форму
                 this.Show();
                 this.BringToFront();
                 
@@ -120,7 +115,7 @@ namespace TemplateGenerator
                     item.ShortcutKeys = Keys.Control | Keys.E;
                 else if (item.Text.Contains("Проверить данные"))
                     item.ShortcutKeys = Keys.Control | Keys.V;
-                else if (item.Text.Contains("Преобразовать тэг"))
+                else if (item.Text.Contains("Преобразование"))
                     item.ShortcutKeys = Keys.Control | Keys.T;
                 else if (item.Text.Contains("Сгенерировать"))
                     item.ShortcutKeys = Keys.Control | Keys.G;
@@ -515,27 +510,27 @@ namespace TemplateGenerator
             contextMenu.BackColor = Color.FromArgb(20, 50, 95);
             contextMenu.ForeColor = Color.Black;
 
-            var menuLoadTemplate = new ToolStripMenuItem("📁 Загрузить шаблон");
+            var menuLoadTemplate = new ToolStripMenuItem("Загрузить шаблон");
             menuLoadTemplate.ForeColor = Color.Black;
             menuLoadTemplate.Click += (s, e) => btnLoadTemplate.PerformClick();
 
-            var menuLoadExcel = new ToolStripMenuItem("📊 Загрузить экземпляры");
+            var menuLoadExcel = new ToolStripMenuItem("Загрузить экземпляры");
             menuLoadExcel.ForeColor = Color.Black;
             menuLoadExcel.Click += (s, e) => btnLoadExcel.PerformClick();
 
-            var menuValidate = new ToolStripMenuItem("✅ Проверить");
+            var menuValidate = new ToolStripMenuItem("Проверить");
             menuValidate.ForeColor = Color.Black;
             menuValidate.Click += (s, e) => btnValidate.PerformClick();
 
-            var menuConvertTags = new ToolStripMenuItem("🔄 Преобразовать тэг");
+            var menuConvertTags = new ToolStripMenuItem("Преобразование");
             menuConvertTags.ForeColor = Color.Black;
             menuConvertTags.Click += (s, e) => btnConvertTags.PerformClick();
 
-            var menuGenerate = new ToolStripMenuItem("🚀 Сгенерировать");
+            var menuGenerate = new ToolStripMenuItem("Сгенерировать");
             menuGenerate.ForeColor = Color.Black;
             menuGenerate.Click += (s, e) => btnGenerate.PerformClick();
 
-            var menuClearAll = new ToolStripMenuItem("🗑 Очистить все");
+            var menuClearAll = new ToolStripMenuItem("Очистить все");
             menuClearAll.ForeColor = Color.Black;
             menuClearAll.Click += (s, e) => btnClearAll.PerformClick();
 
@@ -553,19 +548,19 @@ namespace TemplateGenerator
                 menuClearAll
             });
 
-            var copyMenuItem = new ToolStripMenuItem("📋 Копировать (Ctrl+C)");
+            var copyMenuItem = new ToolStripMenuItem("Копировать (Ctrl+C)");
             copyMenuItem.ForeColor = Color.Black;
             copyMenuItem.Click += (s, e) => CopySelectedCells();
 
-            var pasteMenuItem = new ToolStripMenuItem("📋 Вставить (Ctrl+V)");
+            var pasteMenuItem = new ToolStripMenuItem("Вставить (Ctrl+V)");
             pasteMenuItem.ForeColor = Color.Black;
             pasteMenuItem.Click += (s, e) => PasteToSelectedCells();
 
-            var cutMenuItem = new ToolStripMenuItem("✂️ Вырезать (Ctrl+X)");
+            var cutMenuItem = new ToolStripMenuItem("Вырезать (Ctrl+X)");
             cutMenuItem.ForeColor = Color.Black;
             cutMenuItem.Click += (s, e) => CutSelectedCells();
 
-            var deleteMenuItem = new ToolStripMenuItem("🗑 Очистить (Delete)");
+            var deleteMenuItem = new ToolStripMenuItem("Очистить (Delete)");
             deleteMenuItem.ForeColor = Color.Black;
             deleteMenuItem.Click += (s, e) => DeleteSelectedCells();
 
@@ -587,7 +582,6 @@ namespace TemplateGenerator
         {
             try
             {
-                // Проверяем, что dgvReplacements существует
                 if (dgvReplacements == null)
                 {
                     MessageBox.Show("dgvReplacements не инициализирован", "Ошибка", 
@@ -595,46 +589,55 @@ namespace TemplateGenerator
                     return;
                 }
 
-                // Создаем DataTable
                 replacementTable = new DataTable();
                 replacementTable.Columns.Add("№", typeof(int));
                 replacementTable.Columns.Add("Имя тега для поиска", typeof(string));
                 replacementTable.Columns.Add("Использовать", typeof(bool));
 
-                // Добавляем начальные строки
                 for (int i = 1; i <= 10; i++)
                 {
                     replacementTable.Rows.Add(i, string.Empty, false);
                 }
                 replacementTable.Rows.Add(11, string.Empty, false);
 
-                // Устанавливаем DataSource
+                dgvReplacements.AutoGenerateColumns = false;
+                dgvReplacements.Columns.Clear();
+                
+                DataGridViewTextBoxColumn colNumber = new DataGridViewTextBoxColumn();
+                colNumber.DataPropertyName = "№";
+                colNumber.Name = "№";
+                colNumber.HeaderText = "№";
+                colNumber.Width = 45;
+                colNumber.ReadOnly = false;
+                colNumber.DefaultCellStyle.ForeColor = Color.Black;
+
+                DataGridViewTextBoxColumn colTagName = new DataGridViewTextBoxColumn();
+                colTagName.DataPropertyName = "Имя тега для поиска";
+                colTagName.Name = "Имя тега для поиска";
+                colTagName.HeaderText = "Имя тега для поиска";
+                colTagName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                colTagName.MinimumWidth = 150;
+                colTagName.DefaultCellStyle.ForeColor = Color.Black;
+
+                DataGridViewCheckBoxColumn colUse = new DataGridViewCheckBoxColumn();
+                colUse.DataPropertyName = "Использовать";
+                colUse.Name = "Использовать";
+                colUse.HeaderText = "Использовать";
+                colUse.Width = 60;
+                colUse.DefaultCellStyle.ForeColor = Color.Black;
+
+                dgvReplacements.Columns.AddRange(new DataGridViewColumn[] {
+                    colNumber,
+                    colTagName,
+                    colUse
+                });
+
                 dgvReplacements.DataSource = replacementTable;
-
-                // Настройка колонок - теперь они точно существуют
-                if (dgvReplacements.Columns != null && dgvReplacements.Columns.Count >= 3)
-                {
-                    dgvReplacements.Columns[0].Width = 45;
-                    dgvReplacements.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dgvReplacements.Columns[1].MinimumWidth = 150;
-                    dgvReplacements.Columns[2].Width = 70;
-
-                    dgvReplacements.Columns[0].DefaultCellStyle.ForeColor = Color.Black;
-                    dgvReplacements.Columns[1].DefaultCellStyle.ForeColor = Color.Black;
-                    dgvReplacements.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
-                }
-                else
-                {
-                    MessageBox.Show($"Колонки не созданы. Count: {dgvReplacements.Columns?.Count ?? 0}", 
-                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
                 dgvReplacements.RowHeadersVisible = false;
                 dgvReplacements.AllowUserToAddRows = false;
                 dgvReplacements.AllowUserToDeleteRows = false;
                 dgvReplacements.EditMode = DataGridViewEditMode.EditOnEnter;
                 
-                // Обновляем отображение
                 dgvReplacements.Refresh();
             }
             catch (Exception ex)
@@ -1010,7 +1013,7 @@ namespace TemplateGenerator
             sb.AppendLine(new string('=', 100));
             sb.AppendLine($"  Всего экземпляров:        {instances.Count}");
             sb.AppendLine($"  Активных позиций замен:   {activeReplacements.Count}");
-            sb.AppendLine($"  Преобразование тегов:     {(convertTagsToUnderscore ? "ВКЛ (→ _)" : "ВЫКЛ")}");
+            sb.AppendLine($"  Преобразование тегов:     {(convertTagsToUnderscore ? "ВКЛ" : "ВЫКЛ")}");
 
             string textWithMarkers = sb.ToString();
             string rtfText = ConvertToRtf(textWithMarkers);
@@ -1042,14 +1045,16 @@ namespace TemplateGenerator
 
             if (convertTagsToUnderscore)
             {
-                btnConvertTags.Text = "🔄 Преобразование ВКЛ (→ _)";
+                btnConvertTags.Text = "Преобразование Вкл";
                 btnConvertTags.BackColor = Color.FromArgb(46, 204, 113);
+                btnConvertTags.ForeColor = Color.White;
                 AddLogMessage("Режим преобразования включен", LogType.Process);
             }
             else
             {
-                btnConvertTags.Text = "🔄 Преобразовать тэг";
+                btnConvertTags.Text = "Преобразование Выкл";
                 btnConvertTags.BackColor = Color.FromArgb(241, 196, 15);
+                btnConvertTags.ForeColor = Color.Black;
                 AddLogMessage("Режим преобразования выключен", LogType.Info);
             }
 
@@ -1174,7 +1179,7 @@ namespace TemplateGenerator
 
                     isGenerating = true;
                     btnGenerate.Enabled = false;
-                    btnGenerate.Text = "⏳ Генерация...";
+                    btnGenerate.Text = "Генерация...";
 
                     int generatedCount = 0;
                     string historyFilePath = Path.Combine(outputFolder, "История замен.txt");
@@ -1186,7 +1191,7 @@ namespace TemplateGenerator
 Дата и время: {timestamp}
 Количество сгенерированных файлов: {instances.Count}
 Активных позиций замен: {activeReplacements.Count}
-Преобразование тегов: {(convertTagsToUnderscore ? "ВКЛ (→ _)" : "ВЫКЛ")}
+Преобразование тегов: {(convertTagsToUnderscore ? "ВКЛ" : "ВЫКЛ")}
 Тип выходных файлов: *{fileExtension}
 {historyHeader}
 
@@ -1317,7 +1322,7 @@ namespace TemplateGenerator
             {
                 isGenerating = false;
                 btnGenerate.Enabled = true;
-                btnGenerate.Text = "🚀 Сгенерировать";
+                btnGenerate.Text = "Сгенерировать";
             }
         }
 
@@ -1365,8 +1370,9 @@ namespace TemplateGenerator
                     activeReplacements.Clear();
 
                     convertTagsToUnderscore = true;
-                    btnConvertTags.Text = "🔄 Преобразование ВКЛ (→ _)";
+                    btnConvertTags.Text = "Преобразование Вкл";
                     btnConvertTags.BackColor = Color.FromArgb(46, 204, 113);
+                    btnConvertTags.ForeColor = Color.White;
 
                     txtMappingInfo.Clear();
                     rtbLog.Clear();

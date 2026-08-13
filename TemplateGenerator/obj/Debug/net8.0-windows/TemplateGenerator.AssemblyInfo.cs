@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TemplateGenerator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ce4b87405a6d2e2a233e20e468920c1fb9780be")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8dbbc19717babd79163b1f283fbfde8aec804193")]
 [assembly: System.Reflection.AssemblyProductAttribute("TemplateGenerator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TemplateGenerator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

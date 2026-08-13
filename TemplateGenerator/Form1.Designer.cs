@@ -14,6 +14,7 @@ namespace TemplateGenerator
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Panel panelButtons;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutButtons;
         
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
@@ -72,6 +73,7 @@ namespace TemplateGenerator
             this.panelRight = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.tableLayoutButtons = new System.Windows.Forms.TableLayoutPanel();
             
             this.splitterRight = new System.Windows.Forms.Splitter();
             
@@ -128,7 +130,7 @@ namespace TemplateGenerator
             this.menuStrip.Text = "menuStrip";
             
             // File Menu
-            this.fileMenu.Text = "📁 Файл";
+            this.fileMenu.Text = "Файл";
             this.fileMenu.ForeColor = System.Drawing.Color.Black;
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.loadTemplateMenuItem,
@@ -137,23 +139,23 @@ namespace TemplateGenerator
                 this.exitMenuItem
             });
             
-            this.loadTemplateMenuItem.Text = "📄 Загрузить шаблон";
+            this.loadTemplateMenuItem.Text = "Загрузить шаблон";
             this.loadTemplateMenuItem.ForeColor = System.Drawing.Color.Black;
             this.loadTemplateMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O;
             this.loadTemplateMenuItem.Click += new System.EventHandler((s, e) => btnLoadTemplate.PerformClick());
             
-            this.loadExcelMenuItem.Text = "📊 Загрузить экземпляры";
+            this.loadExcelMenuItem.Text = "Загрузить экземпляры";
             this.loadExcelMenuItem.ForeColor = System.Drawing.Color.Black;
             this.loadExcelMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E;
             this.loadExcelMenuItem.Click += new System.EventHandler((s, e) => btnLoadExcel.PerformClick());
             
-            this.exitMenuItem.Text = "❌ Выход";
+            this.exitMenuItem.Text = "Выход";
             this.exitMenuItem.ForeColor = System.Drawing.Color.Black;
             this.exitMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4;
             this.exitMenuItem.Click += new System.EventHandler((s, e) => Application.Exit());
             
             // Tools Menu
-            this.toolsMenu.Text = "🛠 Инструменты";
+            this.toolsMenu.Text = "Инструменты";
             this.toolsMenu.ForeColor = System.Drawing.Color.Black;
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.validateMenuItem,
@@ -163,34 +165,34 @@ namespace TemplateGenerator
                 this.clearAllMenuItem
             });
             
-            this.validateMenuItem.Text = "✅ Проверить данные";
+            this.validateMenuItem.Text = "Проверить данные";
             this.validateMenuItem.ForeColor = System.Drawing.Color.Black;
             this.validateMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V;
             this.validateMenuItem.Click += new System.EventHandler((s, e) => btnValidate.PerformClick());
             
-            this.convertTagsMenuItem.Text = "🔄 Преобразовать тэг";
+            this.convertTagsMenuItem.Text = "Преобразование";
             this.convertTagsMenuItem.ForeColor = System.Drawing.Color.Black;
             this.convertTagsMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T;
             this.convertTagsMenuItem.Click += new System.EventHandler((s, e) => btnConvertTags.PerformClick());
             
-            this.generateMenuItem.Text = "🚀 Сгенерировать";
+            this.generateMenuItem.Text = "Сгенерировать";
             this.generateMenuItem.ForeColor = System.Drawing.Color.Black;
             this.generateMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G;
             this.generateMenuItem.Click += new System.EventHandler((s, e) => btnGenerate.PerformClick());
             
-            this.clearAllMenuItem.Text = "🗑 Очистить все";
+            this.clearAllMenuItem.Text = "Очистить все";
             this.clearAllMenuItem.ForeColor = System.Drawing.Color.Black;
             this.clearAllMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C;
             this.clearAllMenuItem.Click += new System.EventHandler((s, e) => btnClearAll.PerformClick());
             
             // Help Menu
-            this.helpMenu.Text = "❓ Помощь";
+            this.helpMenu.Text = "Помощь";
             this.helpMenu.ForeColor = System.Drawing.Color.Black;
             this.helpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.aboutMenuItem
             });
             
-            this.aboutMenuItem.Text = "ℹ️ О программе";
+            this.aboutMenuItem.Text = "О программе";
             this.aboutMenuItem.ForeColor = System.Drawing.Color.Black;
             this.aboutMenuItem.Click += new System.EventHandler((s, e) => {
                 MessageBox.Show(
@@ -208,7 +210,7 @@ namespace TemplateGenerator
             this.BackColor = System.Drawing.Color.FromArgb(13, 37, 63);
             this.ForeColor = System.Drawing.Color.White;
             this.Size = new System.Drawing.Size(1400, 900);
-            this.MinimumSize = new System.Drawing.Size(1200, 700);
+            this.MinimumSize = new System.Drawing.Size(1100, 700);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.MainMenuStrip = this.menuStrip;
             
@@ -273,7 +275,6 @@ namespace TemplateGenerator
             this.lblReplacementsTitle.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.lblReplacementsTitle.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
             
-            // Настройка dgvReplacements
             this.dgvReplacements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvReplacements.BackgroundColor = System.Drawing.Color.White;
             this.dgvReplacements.ForeColor = System.Drawing.Color.Black;
@@ -286,32 +287,7 @@ namespace TemplateGenerator
             this.dgvReplacements.AllowUserToAddRows = false;
             this.dgvReplacements.AllowUserToDeleteRows = false;
             this.dgvReplacements.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            
-            // Создаем колонки вручную
-            DataGridViewTextBoxColumn colNumber = new DataGridViewTextBoxColumn();
-            colNumber.Name = "№";
-            colNumber.HeaderText = "№";
-            colNumber.Width = 45;
-            colNumber.ReadOnly = true;
-            colNumber.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
-
-            DataGridViewTextBoxColumn colTagName = new DataGridViewTextBoxColumn();
-            colTagName.Name = "Имя тега для поиска";
-            colTagName.HeaderText = "Имя тега для поиска";
-            colTagName.Width = 200;
-            colTagName.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
-
-            DataGridViewCheckBoxColumn colUse = new DataGridViewCheckBoxColumn();
-            colUse.Name = "Использовать";
-            colUse.HeaderText = "Использовать";
-            colUse.Width = 70;
-            colUse.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
-
-            this.dgvReplacements.Columns.AddRange(new DataGridViewColumn[] {
-                colNumber,
-                colTagName,
-                colUse
-            });
+            this.dgvReplacements.AutoGenerateColumns = false;
             
             panelLeftContainer.Controls.Add(this.dgvReplacements);
             panelLeftContainer.Controls.Add(this.lblReplacementsTitle);
@@ -319,10 +295,10 @@ namespace TemplateGenerator
             
             // panelRight - Информация о заменах
             this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRight.Width = 450;
+            this.panelRight.Width = 350;
             this.panelRight.BackColor = System.Drawing.Color.FromArgb(20, 50, 95);
             this.panelRight.Padding = new System.Windows.Forms.Padding(5);
-            this.panelRight.MinimumSize = new System.Drawing.Size(250, 0);
+            this.panelRight.MinimumSize = new System.Drawing.Size(200, 0);
             
             var panelRightContainer = new System.Windows.Forms.Panel();
             panelRightContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -330,7 +306,7 @@ namespace TemplateGenerator
             
             this.lblMappingTitle.Text = "Детали замен по экземплярам";
             this.lblMappingTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblMappingTitle.ForeColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.lblMappingTitle.ForeColor = System.Drawing.Color.White;
             this.lblMappingTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblMappingTitle.Height = 35;
             this.lblMappingTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -387,84 +363,157 @@ namespace TemplateGenerator
             this.panelMain.Controls.Add(this.panelRight);
             this.panelMain.Controls.Add(this.panelLeft);
             
-            // panelButtons
+            // ============================================
+            // panelButtons - с TableLayoutPanel
+            // ============================================
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelButtons.Height = 50;
+            this.panelButtons.Height = 55;
             this.panelButtons.BackColor = System.Drawing.Color.FromArgb(0, 80, 150);
-            this.panelButtons.Padding = new System.Windows.Forms.Padding(10);
+            this.panelButtons.Padding = new System.Windows.Forms.Padding(10, 8, 10, 8);
             
-            this.btnLoadTemplate.Text = "📁 Загрузить шаблон";
-            this.btnLoadTemplate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.tableLayoutButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutButtons.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutButtons.ColumnCount = 3;
+            this.tableLayoutButtons.RowCount = 1;
+            this.tableLayoutButtons.AutoSize = false;
+            this.tableLayoutButtons.Padding = new System.Windows.Forms.Padding(0);
+            
+            this.tableLayoutButtons.ColumnStyles.Clear();
+            this.tableLayoutButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            this.tableLayoutButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            this.tableLayoutButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
+            
+            var leftPanel = new System.Windows.Forms.FlowLayoutPanel();
+            leftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            leftPanel.FlowDirection = FlowDirection.LeftToRight;
+            leftPanel.WrapContents = true;
+            leftPanel.BackColor = System.Drawing.Color.Transparent;
+            leftPanel.Margin = new System.Windows.Forms.Padding(0);
+            leftPanel.AutoSize = true;
+            leftPanel.Padding = new System.Windows.Forms.Padding(0);
+            
+            var centerPanel = new System.Windows.Forms.FlowLayoutPanel();
+            centerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            centerPanel.FlowDirection = FlowDirection.LeftToRight;
+            centerPanel.WrapContents = true;
+            centerPanel.BackColor = System.Drawing.Color.Transparent;
+            centerPanel.Margin = new System.Windows.Forms.Padding(0);
+            centerPanel.AutoSize = true;
+            centerPanel.Padding = new System.Windows.Forms.Padding(0);
+            
+            var rightPanel = new System.Windows.Forms.FlowLayoutPanel();
+            rightPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            rightPanel.FlowDirection = FlowDirection.RightToLeft;
+            rightPanel.WrapContents = true;
+            rightPanel.BackColor = System.Drawing.Color.Transparent;
+            rightPanel.Margin = new System.Windows.Forms.Padding(0);
+            rightPanel.AutoSize = true;
+            rightPanel.Padding = new System.Windows.Forms.Padding(0);
+            
+            // Кнопка "Загрузить шаблон"
+            this.btnLoadTemplate.Text = "Загрузить шаблон";
+            this.btnLoadTemplate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnLoadTemplate.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.btnLoadTemplate.ForeColor = System.Drawing.Color.White;
             this.btnLoadTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadTemplate.FlatAppearance.BorderSize = 0;
-            this.btnLoadTemplate.Size = new System.Drawing.Size(150, 35);
-            this.btnLoadTemplate.Location = new System.Drawing.Point(10, 8);
+            this.btnLoadTemplate.Size = new System.Drawing.Size(135, 35);
+            this.btnLoadTemplate.MinimumSize = new System.Drawing.Size(100, 35);
             this.btnLoadTemplate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLoadTemplate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnLoadTemplate.Padding = new System.Windows.Forms.Padding(0);
+            this.btnLoadTemplate.UseVisualStyleBackColor = false;
             this.btnLoadTemplate.Click += new System.EventHandler(this.btnLoadTemplate_Click);
             
-            this.btnLoadExcel.Text = "📊 Загрузить экземпляры";
-            this.btnLoadExcel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            // Кнопка "Загрузить экземпляры"
+            this.btnLoadExcel.Text = "Загрузить экземпляры";
+            this.btnLoadExcel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnLoadExcel.BackColor = System.Drawing.Color.FromArgb(46, 204, 113);
             this.btnLoadExcel.ForeColor = System.Drawing.Color.White;
             this.btnLoadExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadExcel.FlatAppearance.BorderSize = 0;
             this.btnLoadExcel.Size = new System.Drawing.Size(160, 35);
-            this.btnLoadExcel.Location = new System.Drawing.Point(170, 8);
+            this.btnLoadExcel.MinimumSize = new System.Drawing.Size(120, 35);
             this.btnLoadExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLoadExcel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnLoadExcel.Padding = new System.Windows.Forms.Padding(0);
+            this.btnLoadExcel.UseVisualStyleBackColor = false;
             this.btnLoadExcel.Click += new System.EventHandler(this.btnLoadExcel_Click);
             
-            this.btnValidate.Text = "✅ Проверить";
-            this.btnValidate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            // Кнопка "Проверить"
+            this.btnValidate.Text = "Проверить";
+            this.btnValidate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnValidate.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
             this.btnValidate.ForeColor = System.Drawing.Color.White;
             this.btnValidate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnValidate.FlatAppearance.BorderSize = 0;
-            this.btnValidate.Size = new System.Drawing.Size(120, 35);
-            this.btnValidate.Location = new System.Drawing.Point(340, 8);
+            this.btnValidate.Size = new System.Drawing.Size(100, 35);
+            this.btnValidate.MinimumSize = new System.Drawing.Size(80, 35);
             this.btnValidate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnValidate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnValidate.Padding = new System.Windows.Forms.Padding(0);
+            this.btnValidate.UseVisualStyleBackColor = false;
             this.btnValidate.Click += new System.EventHandler(this.btnValidate_Click);
             
-            this.btnConvertTags.Text = "🔄 Преобразовать тэг";
-            this.btnConvertTags.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnConvertTags.BackColor = System.Drawing.Color.FromArgb(241, 196, 15);
-            this.btnConvertTags.ForeColor = System.Drawing.Color.Black;
+            // Кнопка "Преобразование"
+            this.btnConvertTags.Text = "Преобразование Вкл";
+            this.btnConvertTags.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnConvertTags.BackColor = System.Drawing.Color.FromArgb(46, 204, 113);
+            this.btnConvertTags.ForeColor = System.Drawing.Color.White;
             this.btnConvertTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConvertTags.FlatAppearance.BorderSize = 0;
             this.btnConvertTags.Size = new System.Drawing.Size(160, 35);
-            this.btnConvertTags.Location = new System.Drawing.Point(520, 8);
+            this.btnConvertTags.MinimumSize = new System.Drawing.Size(120, 35);
             this.btnConvertTags.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConvertTags.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnConvertTags.Padding = new System.Windows.Forms.Padding(0);
+            this.btnConvertTags.UseVisualStyleBackColor = false;
             this.btnConvertTags.Click += new System.EventHandler(this.btnConvertTags_Click);
             
-            this.btnGenerate.Text = "🚀 Сгенерировать";
-            this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            // Кнопка "Сгенерировать"
+            this.btnGenerate.Text = "Сгенерировать";
+            this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnGenerate.BackColor = System.Drawing.Color.FromArgb(243, 156, 18);
             this.btnGenerate.ForeColor = System.Drawing.Color.White;
             this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerate.FlatAppearance.BorderSize = 0;
-            this.btnGenerate.Size = new System.Drawing.Size(140, 35);
-            this.btnGenerate.Location = new System.Drawing.Point(780, 8);
+            this.btnGenerate.Size = new System.Drawing.Size(120, 35);
+            this.btnGenerate.MinimumSize = new System.Drawing.Size(90, 35);
             this.btnGenerate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGenerate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnGenerate.Padding = new System.Windows.Forms.Padding(0);
+            this.btnGenerate.UseVisualStyleBackColor = false;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             
-            this.btnClearAll.Text = "🗑 Очистить все";
-            this.btnClearAll.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            // Кнопка "Очистить все"
+            this.btnClearAll.Text = "Очистить все";
+            this.btnClearAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnClearAll.BackColor = System.Drawing.Color.FromArgb(192, 57, 43);
             this.btnClearAll.ForeColor = System.Drawing.Color.White;
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.FlatAppearance.BorderSize = 0;
-            this.btnClearAll.Size = new System.Drawing.Size(120, 35);
-            this.btnClearAll.Location = new System.Drawing.Point(1050, 8);
+            this.btnClearAll.Size = new System.Drawing.Size(100, 35);
+            this.btnClearAll.MinimumSize = new System.Drawing.Size(80, 35);
             this.btnClearAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClearAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnClearAll.Padding = new System.Windows.Forms.Padding(0);
+            this.btnClearAll.UseVisualStyleBackColor = false;
             this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             
-            this.panelButtons.Controls.Add(this.btnLoadTemplate);
-            this.panelButtons.Controls.Add(this.btnLoadExcel);
-            this.panelButtons.Controls.Add(this.btnValidate);
-            this.panelButtons.Controls.Add(this.btnConvertTags);
-            this.panelButtons.Controls.Add(this.btnGenerate);
-            this.panelButtons.Controls.Add(this.btnClearAll);
+            leftPanel.Controls.Add(this.btnLoadTemplate);
+            leftPanel.Controls.Add(this.btnLoadExcel);
+            
+            centerPanel.Controls.Add(this.btnValidate);
+            centerPanel.Controls.Add(this.btnConvertTags);
+            
+            rightPanel.Controls.Add(this.btnClearAll);
+            rightPanel.Controls.Add(this.btnGenerate);
+            
+            this.tableLayoutButtons.Controls.Add(leftPanel, 0, 0);
+            this.tableLayoutButtons.Controls.Add(centerPanel, 1, 0);
+            this.tableLayoutButtons.Controls.Add(rightPanel, 2, 0);
+            
+            this.panelButtons.Controls.Add(this.tableLayoutButtons);
             
             // panelBottom - Лог
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -497,7 +546,6 @@ namespace TemplateGenerator
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.menuStrip);
             
-            // Подписка на события DataGridView
             this.dgvReplacements.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReplacements_CellValueChanged);
             this.dgvReplacements.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvReplacements_CurrentCellDirtyStateChanged);
             
