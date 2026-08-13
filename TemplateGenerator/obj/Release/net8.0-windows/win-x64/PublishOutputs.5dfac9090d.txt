@@ -1,0 +1,7 @@
+C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\publish\TemplateGenerator.pdb
+C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\publish\D3DCompiler_47_cor3.dll
+C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\publish\PenImc_cor3.dll
+C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\publish\PresentationNative_cor3.dll
+C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\publish\vcruntime140_cor3.dll
+C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\publish\wpfgfx_cor3.dll
+C:\_Work\VSCode\TemplateGenerator\TemplateGenerator\publish\TemplateGenerator.exe
