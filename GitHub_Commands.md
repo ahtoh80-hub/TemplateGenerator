@@ -3,210 +3,245 @@
 ## 1. Инициализация репозитория
 
 ```bash
-# Перейти в папку проекта
 cd C:\_Work\VSCode\TemplateGenerator\TemplateGenerator
+```
 
-# Инициализировать Git репозиторий
+```bash
 git init
+```
 
-# Проверить статус
+```bash
 git status
 ```
 
 ## 2. Настройка Git (если не настроен)
 
 ```bash
-# Установить имя пользователя
 git config user.name "Антон Решетов"
+```
 
-# Установить email
+```bash
 git config user.email "your.email@example.com"
+```
 
-# Проверить настройки
+```bash
 git config --list
 ```
 
 ## 3. Работа с файлами
 
 ```bash
-# Проверить статус изменений
 git status
+```
 
-# Посмотреть изменения в файлах
+```bash
 git diff
+```
 
-# Посмотреть изменения в конкретном файле
+```bash
 git diff Form1.cs
+```
 
-# Добавить все файлы в индекс
+```bash
 git add .
+```
 
-# Добавить конкретные файлы
+```bash
 git add Form1.cs Form1.Designer.cs Program.cs TemplateGenerator.csproj
+```
 
-# Добавить только C# файлы
+```bash
 git add *.cs
+```
 
-# Удалить файл из индекса (но оставить в папке)
+```bash
 git rm --cached имя_файла
 ```
 
 ## 4. Создание коммитов
 
 ```bash
-# Сделать коммит с сообщением
 git commit -m "Initial commit: Генератор экземпляров по шаблону"
+```
 
-# Коммит с подробным описанием
+```bash
 git commit -m "v2.3: Добавлена поддержка XML и визуальное выделение тегов" -m "- Поддержка XML с обновлением атрибута NAME
 - Визуальное выделение несовпадающих тегов красным
 - Адаптивная панель кнопок
 - Исправлены ошибки инициализации"
+```
 
-# Добавить все и сделать коммит одной командой
+```bash
 git commit -am "Обновление: исправлены ошибки"
+```
 
-# Изменить последний коммит (добавить файлы или изменить сообщение)
+```bash
 git commit --amend -m "Новое сообщение для последнего коммита"
 ```
 
 ## 5. Работа с удаленным репозиторием (GitHub)
 
 ```bash
-# Добавить удаленный репозиторий (создать на GitHub сначала!)
 git remote add origin https://github.com/ваш_username/TemplateGenerator.git
+```
 
-# Или через SSH
+```bash
 git remote add origin git@github.com:ваш_username/TemplateGenerator.git
+```
 
-# Проверить удаленные репозитории
+```bash
 git remote -v
+```
 
-# Отправить изменения в GitHub (первый раз)
+```bash
 git push -u origin main
+```
 
-# Или если ветка master
+```bash
 git push -u origin master
+```
 
-# Отправить изменения (последующие разы)
+```bash
 git push
+```
 
-# Отправить изменения с указанием ветки
+```bash
 git push origin main
 ```
 
 ## 6. Клонирование репозитория
 
 ```bash
-# Клонировать репозиторий
 git clone https://github.com/ваш_username/TemplateGenerator.git
+```
 
-# Клонировать в конкретную папку
+```bash
 git clone https://github.com/ваш_username/TemplateGenerator.git MyTemplateGenerator
 ```
 
 ## 7. Работа с ветками
 
 ```bash
-# Создать новую ветку
 git branch feature/xml-support
+```
 
-# Переключиться на ветку
+```bash
 git checkout feature/xml-support
+```
 
-# Создать и переключиться одной командой
+```bash
 git checkout -b feature/xml-support
+```
 
-# Посмотреть все ветки
+```bash
 git branch
+```
 
-# Посмотреть все ветки (включая удаленные)
+```bash
 git branch -a
+```
 
-# Переключиться на главную ветку
+```bash
 git checkout main
+```
 
-# Объединить ветку с текущей
+```bash
 git merge feature/xml-support
+```
 
-# Удалить ветку
+```bash
 git branch -d feature/xml-support
+```
 
-# Удалить ветку на удаленном репозитории
+```bash
 git push origin --delete feature/xml-support
 ```
 
 ## 8. Обновление и синхронизация
 
 ```bash
-# Получить изменения с удаленного репозитория (без объединения)
 git fetch
+```
 
-# Получить изменения и объединить с текущей веткой
+```bash
 git pull
+```
 
-# Получить изменения из конкретной ветки
+```bash
 git pull origin main
+```
 
-# Получить изменения и перезаписать локальные (опасно!)
+```bash
 git pull --force
 ```
 
 ## 9. Отмена изменений
 
 ```bash
-# Отменить изменения в файле (вернуть к последнему коммиту)
 git checkout -- имя_файла
+```
 
-# Отменить все изменения
+```bash
 git checkout -- .
+```
 
-# Отменить последний коммит (оставить изменения)
+```bash
 git reset --soft HEAD~1
+```
 
-# Отменить последний коммит (удалить изменения)
+```bash
 git reset --hard HEAD~1
+```
 
-# Отменить коммит на удаленном репозитории
+```bash
 git revert HEAD
-git push
+```
 
-# Удалить неотслеживаемые файлы
+```bash
+git push
+```
+
+```bash
 git clean -fd
 ```
 
 ## 10. Просмотр истории
 
 ```bash
-# Посмотреть историю коммитов
 git log
+```
 
-# Посмотреть историю в одну строку
+```bash
 git log --oneline
+```
 
-# Посмотреть историю с графиком
+```bash
 git log --oneline --graph --all
+```
 
-# Посмотреть изменения в конкретном коммите
+```bash
 git show hash_коммита
+```
 
-# Посмотреть последние N коммитов
+```bash
 git log -n 5
 ```
 
 ## 11. Для вашего конкретного проекта
 
 ```bash
-# 1. Перейти в папку проекта
 cd C:\_Work\VSCode\TemplateGenerator\TemplateGenerator
+```
 
-# 2. Проверить статус
+```bash
 git status
+```
 
-# 3. Добавить все файлы
+```bash
 git add .
+```
 
-# 4. Сделать коммит
+```bash
 git commit -m "v2.3: Генератор экземпляров по шаблону
 
 Новые функции:
@@ -224,150 +259,231 @@ git commit -m "v2.3: Генератор экземпляров по шаблон
 - Создание колонок DataGridView вручную
 - Добавлен FlowLayoutPanel для адаптивности кнопок
 - Улучшена обработка ошибок в Program.cs"
+```
 
-# 5. Отправить на GitHub
+```bash
 git push origin main
+```
 
-# Или если первый раз:
+```bash
 git push -u origin main
 ```
 
-## 12. Шпаргалка по .gitignore для вашего проекта
-
-Создайте файл `.gitignore` в корневой папке проекта:
+## 12. Создание .gitignore
 
 ```bash
-# Создать .gitignore
 echo "# Visual Studio" > .gitignore
+```
+
+```bash
 echo ".vs/" >> .gitignore
+```
+
+```bash
 echo "bin/" >> .gitignore
+```
+
+```bash
 echo "obj/" >> .gitignore
-echo "*.user" >> .gitignore
-echo "*.suo" >> .gitignore
-echo "" >> .gitignore
-echo "# Build results" >> .gitignore
-echo "[Dd]ebug/" >> .gitignore
-echo "[Rr]elease/" >> .gitignore
-echo "x64/" >> .gitignore
-echo "x86/" >> .gitignore
-echo "" >> .gitignore
-echo "# User-specific files" >> .gitignore
-echo "*.rsuser" >> .gitignore
-echo "*.suo" >> .gitignore
+```
+
+```bash
 echo "*.user" >> .gitignore
 ```
 
-Или скачайте готовый .gitignore для Visual Studio:
 ```bash
-# Скачать .gitignore для Visual Studio
+echo "*.suo" >> .gitignore
+```
+
+```bash
+echo "" >> .gitignore
+```
+
+```bash
+echo "# Build results" >> .gitignore
+```
+
+```bash
+echo "[Dd]ebug/" >> .gitignore
+```
+
+```bash
+echo "[Rr]elease/" >> .gitignore
+```
+
+```bash
+echo "x64/" >> .gitignore
+```
+
+```bash
+echo "x86/" >> .gitignore
+```
+
+```bash
+echo "" >> .gitignore
+```
+
+```bash
+echo "# User-specific files" >> .gitignore
+```
+
+```bash
+echo "*.rsuser" >> .gitignore
+```
+
+```bash
+echo "*.suo" >> .gitignore
+```
+
+```bash
+echo "*.user" >> .gitignore
+```
+
+Или скачать готовый .gitignore:
+
+```bash
 curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/main/VisualStudio.gitignore
 ```
 
 ## 13. Полезные комбинации команд
 
 ```bash
-# Показать статус и добавить все файлы одной командой
 git status && git add .
+```
 
-# Сделать коммит и отправить одной командой
+```bash
 git commit -m "Сообщение" && git push
+```
 
-# Посмотреть статус, добавить файлы, сделать коммит и отправить
+```bash
 git status && git add . && git commit -m "Сообщение" && git push
 ```
 
 ## 14. Решение проблем
 
 ```bash
-# Если забыли добавить файл в коммит
 git add забытый_файл.cs
+```
+
+```bash
 git commit --amend --no-edit
+```
 
-# Если ошиблись в сообщении коммита
+```bash
 git commit --amend -m "Исправленное сообщение"
+```
 
-# Если нужно отменить последний коммит на удаленном
+```bash
 git reset --hard HEAD~1
-git push --force
+```
 
-# Если конфликт при pull
+```bash
+git push --force
+```
+
+```bash
 git pull
-# Исправить конфликты в файлах
+```
+
+```bash
 git add .
+```
+
+```bash
 git commit -m "Разрешение конфликтов"
+```
+
+```bash
 git push
 ```
 
-## 15. Создание нового репозитория на GitHub
+## 15. Создание нового репозитория на GitHub (полный цикл)
 
 ```bash
-# 1. Зайдите на GitHub.com и создайте новый репозиторий
-
-# 2. В локальной папке выполните:
 git init
+```
+
+```bash
 git add .
+```
+
+```bash
 git commit -m "Initial commit: Генератор экземпляров по шаблону"
+```
 
-# 3. Добавьте удаленный репозиторий (замените URL на ваш)
+```bash
 git remote add origin https://github.com/ваш_username/TemplateGenerator.git
+```
 
-# 4. Отправьте код
+```bash
 git push -u origin main
 ```
 
-## 16. Полный цикл для вашего проекта
+## 16. Полный цикл для вашего проекта (если репозиторий уже есть)
 
 ```bash
-# ============================================
-# ЕСЛИ РЕПОЗИТОРИЙ ЕЩЕ НЕ СОЗДАН
-# ============================================
-
-# 1. Перейти в папку проекта
 cd C:\_Work\VSCode\TemplateGenerator\TemplateGenerator
+```
 
-# 2. Инициализировать Git
-git init
-
-# 3. Создать .gitignore
-echo "bin/" >> .gitignore
-echo "obj/" >> .gitignore
-echo ".vs/" >> .gitignore
-echo "*.user" >> .gitignore
-echo "*.suo" >> .gitignore
-
-# 4. Добавить все файлы
-git add .
-
-# 5. Сделать первый коммит
-git commit -m "Initial commit: Генератор экземпляров по шаблону v2.3"
-
-# 6. Добавить удаленный репозиторий (ЗАМЕНИТЕ URL!)
-git remote add origin https://github.com/ваш_username/TemplateGenerator.git
-
-# 7. Отправить на GitHub
-git push -u origin main
-
-# ============================================
-# ЕСЛИ РЕПОЗИТОРИЙ УЖЕ ЕСТЬ (ОБНОВЛЕНИЕ)
-# ============================================
-
-# 1. Перейти в папку проекта
-cd C:\_Work\VSCode\TemplateGenerator\TemplateGenerator
-
-# 2. Проверить статус
+```bash
 git status
+```
 
-# 3. Добавить изменения
+```bash
 git add .
+```
 
-# 4. Сделать коммит с описанием
+```bash
 git commit -m "v2.3: Добавлена поддержка XML и визуальное выделение тегов
 
 - Добавлена поддержка XML с обновлением атрибута NAME
 - Визуальное выделение несовпадающих тегов красным
 - Адаптивная панель кнопок (FlowLayoutPanel)
 - Исправлена ошибка инициализации таблицы замен"
+```
 
-# 5. Отправить на GitHub
+```bash
 git push
+```
+
+## 17. Быстрые команды (шпаргалка)
+
+```bash
+# Статус
+git status
+```
+
+```bash
+# Добавить все
+git add .
+```
+
+```bash
+# Коммит
+git commit -m "Сообщение"
+```
+
+```bash
+# Отправить
+git push
+```
+
+```bash
+# Получить
+git pull
+```
+
+```bash
+# Ветки
+git branch
+```
+
+```bash
+# Переключиться на ветку
+git checkout имя_ветки
+```
+
+```bash
+# История
+git log --oneline
 ```
